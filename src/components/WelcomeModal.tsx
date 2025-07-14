@@ -1,8 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 
 interface WelcomeModalProps {
   isOpen: boolean;

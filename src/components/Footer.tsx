@@ -1,8 +1,27 @@
-import Link from 'next/link';
+"use client";
+
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 
 const Footer = () => {
+  // Función para manejar el scroll suave
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    // Obtener el elemento de destino
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      // Scroll suave hacia el elemento
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+      
+      // Actualizar la URL sin recargar la página
+      window.history.pushState({}, '', href);
+    }
+  };
   return (
     <footer className="bg-blue-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -10,9 +29,9 @@ const Footer = () => {
           {/* Logo y descripción */}
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
             <div className="flex items-center mb-4">
-              <div className="relative h-10 w-32 bg-white rounded-md p-1">
+              <div className="relative h-10 w-32 rounded-md p-1">
                 <Image 
-                  src="/Krezco logo-01.jpg" 
+                  src="/logo.png" 
                   alt="Krezco" 
                   fill
                   className="object-contain"
@@ -49,29 +68,24 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Enlaces rápidos</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-gray-300 hover:text-orange-400 transition-colors">
+                <a href="#inicio" className="text-gray-300 hover:text-orange-400 transition-colors" onClick={(e) => handleSmoothScroll(e, '#inicio')}>
                   Inicio
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/about" className="text-gray-300 hover:text-orange-400 transition-colors">
-                  Acerca de nosotros
-                </Link>
+                <a href="#valores" className="text-gray-300 hover:text-orange-400 transition-colors" onClick={(e) => handleSmoothScroll(e, '#valores')}>
+                  Valores
+                </a>
               </li>
               <li>
-                <Link href="/services" className="text-gray-300 hover:text-orange-400 transition-colors">
+                <a href="#servicios" className="text-gray-300 hover:text-orange-400 transition-colors" onClick={(e) => handleSmoothScroll(e, '#servicios')}>
                   Servicios
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/blog" className="text-gray-300 hover:text-orange-400 transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-300 hover:text-orange-400 transition-colors">
+                <a href="#contacto" className="text-gray-300 hover:text-orange-400 transition-colors" onClick={(e) => handleSmoothScroll(e, '#contacto')}>
                   Contacto
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -81,29 +95,34 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Servicios</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/services#terrestre" className="text-gray-300 hover:text-orange-400 transition-colors">
+                <a href="#servicios" className="text-gray-300 hover:text-orange-400 transition-colors" onClick={(e) => handleSmoothScroll(e, '#servicios')}>
                   Transporte Terrestre
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/services#maritimo" className="text-gray-300 hover:text-orange-400 transition-colors">
+                <a href="#servicios" className="text-gray-300 hover:text-orange-400 transition-colors" onClick={(e) => handleSmoothScroll(e, '#servicios')}>
                   Transporte Marítimo
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/services#aereo" className="text-gray-300 hover:text-orange-400 transition-colors">
+                <a href="#servicios" className="text-gray-300 hover:text-orange-400 transition-colors" onClick={(e) => handleSmoothScroll(e, '#servicios')}>
                   Transporte Aéreo
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/services#aduanas" className="text-gray-300 hover:text-orange-400 transition-colors">
-                  Servicios Aduaneros
-                </Link>
+                <a href="#servicios" className="text-gray-300 hover:text-orange-400 transition-colors" onClick={(e) => handleSmoothScroll(e, '#servicios')}>
+                  Servicios de Aduanas
+                </a>
               </li>
               <li>
-                <Link href="/services#almacenamiento" className="text-gray-300 hover:text-orange-400 transition-colors">
+                <a href="#servicios" className="text-gray-300 hover:text-orange-400 transition-colors" onClick={(e) => handleSmoothScroll(e, '#servicios')}>
                   Almacenamiento
-                </Link>
+                </a>
+              </li>
+              <li>
+                <a href="#servicios" className="text-gray-300 hover:text-orange-400 transition-colors" onClick={(e) => handleSmoothScroll(e, '#servicios')}>
+                  Seguros de Carga
+                </a>
               </li>
             </ul>
           </div>
@@ -163,12 +182,12 @@ const Footer = () => {
             © {new Date().getFullYear()} Krezco. Todos los derechos reservados.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="/privacy" className="text-gray-400 hover:text-orange-400 text-sm">
+            <a href="#" className="text-gray-400 hover:text-orange-400 text-sm">
               Política de privacidad
-            </Link>
-            <Link href="/terms" className="text-gray-400 hover:text-orange-400 text-sm">
+            </a>
+            <a href="#" className="text-gray-400 hover:text-orange-400 text-sm">
               Términos y condiciones
-            </Link>
+            </a>
           </div>
         </div>
       </div>

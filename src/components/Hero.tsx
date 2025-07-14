@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const Hero = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="inicio" className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Fondo con gradiente */}
       <div className="absolute inset-0 z-0 bg-gradient-to-br from-blue-900 to-blue-700">
         <div className="absolute inset-0 opacity-20">
@@ -37,7 +37,30 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300 transform hover:scale-105">
+          <button 
+            className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300 transform hover:scale-105"
+            onClick={(e) => {
+              e.preventDefault();
+              const contactoSection = document.getElementById('contacto');
+              if (contactoSection) {
+                // Usar block: 'start' para asegurar que el inicio de la sección sea visible
+                contactoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Ajustar la posición para mostrar toda la sección
+                setTimeout(() => {
+                  // Obtener la posición actual y ajustarla para mostrar más contenido
+                  const headerHeight = 80; // Altura aproximada del header fijo
+                  const currentPosition = window.scrollY;
+                  window.scrollTo({
+                    top: currentPosition - headerHeight,
+                    behavior: 'smooth'
+                  });
+                }, 800); // Esperar a que termine el primer scroll
+                
+                window.history.pushState({}, '', '#contacto');
+              }
+            }}
+          >
             Solicitar presupuesto
           </button>
         </motion.div>

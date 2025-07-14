@@ -10,6 +10,29 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [language, setLanguage] = useState('es');
+  
+  // Función para manejar el scroll suave
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    // Cerrar el menú móvil si está abierto
+    setIsOpen(false);
+    
+    // Obtener el elemento de destino
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      // Scroll suave hacia el elemento
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+      
+      // Actualizar la URL sin recargar la página
+      window.history.pushState({}, '', href);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,11 +52,10 @@ const Header = () => {
   };
 
   const menuItems = [
-    { name: language === 'es' ? 'Inicio' : 'Home', href: '/' },
-    { name: language === 'es' ? 'Acerca de nosotros' : 'About Us', href: '/about' },
-    { name: language === 'es' ? 'Servicios' : 'Services', href: '/services' },
-    { name: language === 'es' ? 'Blog' : 'Blog', href: '/blog' },
-    { name: language === 'es' ? 'Contacto' : 'Contact', href: '/contact' },
+    { name: language === 'es' ? 'Inicio' : 'Home', href: '#inicio' },
+    { name: language === 'es' ? 'Valores' : 'Values', href: '#valores' },
+    { name: language === 'es' ? 'Servicios' : 'Services', href: '#servicios' },
+    { name: language === 'es' ? 'Contacto' : 'Contact', href: '#contacto' },
   ];
 
   return (
@@ -53,7 +75,7 @@ const Header = () => {
                 className="relative h-10 w-32"
               >
                 <Image 
-                  src="/Krezco logo-01.jpg" 
+                  src="/logo.png" 
                   alt="Krezco" 
                   fill
                   className="object-contain"
@@ -76,13 +98,14 @@ const Header = () => {
           
           <nav className="hidden md:flex space-x-10">
             {menuItems.map((item) => (
-              <Link 
+              <a 
                 key={item.name}
                 href={item.href}
                 className="text-base font-medium text-blue-900 hover:text-orange-500 transition-colors"
+                onClick={(e) => handleSmoothScroll(e, item.href)}
               >
                 {item.name}
-              </Link>
+              </a>
             ))}
           </nav>
           
@@ -110,14 +133,14 @@ const Header = () => {
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
           {menuItems.map((item) => (
-            <Link
+            <a
               key={item.name}
               href={item.href}
               className="block px-3 py-2 rounded-md text-base font-medium text-blue-900 hover:bg-blue-50"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => handleSmoothScroll(e, item.href)}
             >
               {item.name}
-            </Link>
+            </a>
           ))}
           <button
             onClick={toggleLanguage}
